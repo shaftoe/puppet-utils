@@ -17,13 +17,13 @@ define utils::user () {
 
   File {
     owner  => $name,
-    group  => $group,
+    group  => $name,
   }
 
   if $user['ensure'] == 'present' {
     file { "/home/${name}":
       ensure => directory,
-      mode   => '0755',
+      mode   => '0750',
     }
     if $user['sshpubkey'] {
       file { "/home/${name}/.ssh":
