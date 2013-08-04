@@ -31,10 +31,11 @@ define utils::user () {
         mode   => '0700',
       }
       ssh_authorized_key { $name:
-        ensure => $user['ensure'],
-        key    => $user['sshpubkey'],
-        type   => 'rsa',
-        user   => $name,
+        ensure  => $user['ensure'],
+        key     => $user['sshpubkey'],
+        type    => 'rsa',
+        user    => $name,
+        require => File["/home/${name}/.ssh"],
       }
     }
   } else {
