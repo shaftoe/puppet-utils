@@ -1,0 +1,25 @@
+#!/bin/bash
+
+UMASK=0027
+DBUSER="<%= @dbuser %>"
+DBPASSWORD="<%= @dbpass %>"
+STOREDIRECTORY="<%= @storedirectory %>"
+RETENTIONDAYS="<%= @retentiondays %>"
+DBLIST=`mysqlshow -u $DBUSER -p$DBPASSWORD|grep -v ^+|grep -v Databases|cut -d " " -f 2`
+TODAY=`date +%F-%H_%M`
+
+umask $UMASK
+
+dump_mysql_dbs() {
+	for dbname in $DBLIST
+	do
+		mysqldump --single-transaction -u $DBUSER -p$DBPASSWORD $dbname | gzip > $STOREDIRECTORY/$dbname-$TODAY.sql.gz
+	done
+}
+
+purge_old_dbs() {
+	find $STOREDIRECTORY/ -type f -mtime $RETENTIONDAYS -delete
+}
+
+dump_mysql_dbs
+purge_old_dbs
