@@ -2,12 +2,16 @@ class utils::daily_dump_mysql_dbs (
   $ensure = 'present',
   $dbuser = 'backup',
   $dbpass = 'secret',
-  $storedirectory = "/var/backups/${::hostname}/mysql-dumps",
+  $storedir = '',
   $retentiondays = '30'
   ) {
 
   if ! ($ensure == 'present' or $ensure == 'absent') {
     fail 'ensure must be "present" or "absent"'
+  }
+  $storedirectory = $storedir ? {
+    ''      => "/var/backups/${::hostname}/mysql-dumps",
+    default => $storedir
   }
 
   $ensure_dir = $ensure ? {
@@ -19,7 +23,7 @@ class utils::daily_dump_mysql_dbs (
     ensure  => $ensure_dir,
     recurse => true,
     force   => true,
-    mode    => '0750',
+    mode    => '0640',
     owner   => 'root',
     group   => 'staff',
   }
