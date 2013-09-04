@@ -8,11 +8,12 @@ define utils::user () {
   }
     
   user { $name:
-    ensure => $user['ensure'],
-    gid    => $user['gid'],
-    uid    => $user['uid'],
-    home   => "/home/${name}",
-    shell  => '/bin/bash',
+    ensure   => $user['ensure'],
+    gid      => $user['gid'],
+    uid      => $user['uid'],
+    home     => "/home/${name}",
+    shell    => '/bin/bash',
+    password => $user['password'],
   }
 
   File {
