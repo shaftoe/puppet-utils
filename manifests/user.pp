@@ -6,7 +6,7 @@ define utils::user () {
     ensure => $user['ensure'],
     gid    => $user['gid'],
   }
-    
+
   user { $name:
     ensure   => $user['ensure'],
     gid      => $user['gid'],
@@ -25,6 +25,13 @@ define utils::user () {
     file { "/home/${name}":
       ensure => directory,
       mode   => '0750',
+    }
+    $dotlinks = ['bashrc', 'profile', 'bash_logout']
+    $dotlinks.foreach { |$x|
+      file { "/home/${name}/.${x}":
+        ensure => link,
+        target => "/etc/skel/.${x}",
+      }
     }
     if $user['sshpubkey'] {
       file { "/home/${name}/.ssh":
