@@ -2,8 +2,6 @@
 # Setup skel dotfiles
 #
 class utils::skel() {
-  Package['bash'] -> Class['utils::skel']
-
   file { '/etc/skel/.bashrc':
     ensure => present,
     owner  => 'root',
