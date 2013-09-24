@@ -14,6 +14,7 @@ define utils::user () {
     home     => "/home/${name}",
     shell    => '/bin/bash',
     password => $user['password'],
+    groups   => $user['groups'],
   }
 
   File {
