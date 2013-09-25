@@ -9,7 +9,7 @@ class utils::docker () {
     'libcgroup1',
     'lxc',
   ]
-  packages {$pkgs: ensure => present}
+  package {$pkgs: ensure => present}
 
   $url = 'https://get.docker.io/builds/Linux/x86_64/docker-latest'
   $bin = '/usr/local/bin/docker'
