@@ -29,12 +29,8 @@ start)  log_daemon_msg "Starting docker"
         $DAEMON $EXTRA_OPTS >> $LOGFILE 2>> $LOGFILE &
         log_end_msg $?
         ;;
-stop)   log_daemon_msg "Stopping docker"
+stop)   echo "Stopping docker"
         pkill $NAME
-        rm -f $PIDFILE
-        RETVAL=$?
-        [ $RETVAL -eq 0 ] && [ -e "$PIDFILE" ] && rm -f $PIDFILE
-        log_end_msg $RETVAL
         ;;
 restart) $0 stop
          $0 start
