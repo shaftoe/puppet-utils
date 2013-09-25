@@ -5,9 +5,7 @@ class utils::docker () {
 
   $pkgs = [
     'aufs-tools',
-    'cgroup-bin',
-    'libcgroup1',
-    'lxc',
+    'lxctl',
   ]
   package {$pkgs: ensure => present}
 
