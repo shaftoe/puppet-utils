@@ -3,9 +3,16 @@
 #
 class utils::docker () {
 
+  $pkgs = [
+    'aufs-tools',
+    'cgroup-bin',
+    'libcgroup1',
+    'lxc',
+  ]
+  packages {$pkgs: ensure => present}
+
   $url = 'https://get.docker.io/builds/Linux/x86_64/docker-latest'
   $bin = '/usr/local/bin/docker'
-
   exec { 'deploy_latest_docker':
     command => "/usr/bin/wget -O ${bin} ${url}",
     creates => $bin,
