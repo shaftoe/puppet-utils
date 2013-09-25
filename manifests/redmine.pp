@@ -1,7 +1,7 @@
-class utils::redmine () {
-
-  $mounts = hiera('redmine_mounts')  # hash, source and dest
-  $repository = hiera('redmine_docker_repository')
+class utils::redmine (
+  $mounts = false,  # hash, source and dest
+  $repository = false
+  ) {
 
   file { '/etc/rc.local':
     ensure  => present,
