@@ -16,4 +16,20 @@ class utils::docker () {
     require => Exec['deploy_latest_docker'],
   }
 
+  file {'/etc/init.d/docker':
+    ensure => present,
+    owner  => 'root',
+    mode   => '0554',
+    source => 'puppet:///modules/utils/docker-init',
+  }
+
+  service {'docker':
+    ensure  => running,
+    enable  => true,
+    require => [
+      File['/etc/init.d/docker'],
+      File[$bin],
+    ],
+  }
+
 }

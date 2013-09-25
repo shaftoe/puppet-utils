@@ -1,0 +1,53 @@
+#!/bin/sh
+# Start/stop the docker daemon.
+#
+### BEGIN INIT INFO
+# Provides:          docker
+# Default-Start:     2 3 4 5
+# Default-Stop:
+### END INIT INFO
+
+PATH=/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/bin
+DESC="docker daemon"
+NAME=docker
+DAEMON=/usr/local/bin/docker
+PIDFILE=/var/run/dockerd.pid
+SCRIPTNAME=/etc/init.d/"$NAME"
+LOGFILE=/var/log/docker.log
+EXTRA_OPTS='-d'
+
+test -f $DAEMON || exit 0
+
+. /lib/lsb/init-functions
+
+[ -r /etc/default/docker ] && . /etc/default/docker
+
+case "$1" in
+start)  log_daemon_msg "Starting docker"
+        $DAEMON $EXTRA_OPTS >> $LOGFILE 2>> $LOGFILE &
+        log_end_msg $?
+        ;;
+stop)   log_daemon_msg "Stopping docker"
+        pkill $NAME
+        rm -f $PIDFILE
+        RETVAL=$?
+        [ $RETVAL -eq 0 ] && [ -e "$PIDFILE" ] && rm -f $PIDFILE
+        log_end_msg $RETVAL
+        ;;
+restart) $0 stop
+         $0 start
+        ;;
+status)
+        if pgrep $NAME > /dev/null; then
+            log_action_msg 'Docker process running'
+            return 0
+        else
+            log_action_msg 'Docker process NOT running'
+            return 1
+        fi
+        ;;
+*)      log_action_msg "Usage: /etc/init.d/docker {start|stop|status|restart}"
+        exit 2
+        ;;
+esac
+exit 0
