@@ -30,8 +30,7 @@ start)  log_daemon_msg "Starting docker"
         log_end_msg $?
         ;;
 stop)   echo "Stopping docker"
-        pkill $NAME
-        return 0
+        pkill -f $DAEMON
         ;;
 restart) $0 stop
          $0 start
