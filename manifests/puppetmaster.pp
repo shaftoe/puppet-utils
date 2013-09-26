@@ -7,7 +7,6 @@ class utils::puppetmaster (
 
   include 'utils::puppetagent'
 
-  $m = '/usr/local/puppet-bitbucket'
   cron { 'puppet-repo-update':
     user    => 'root',
     command => "cd ${manifestsbasepath} && git pull &> /dev/null",
