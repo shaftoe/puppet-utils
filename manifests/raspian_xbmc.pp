@@ -1,3 +1,4 @@
+# http://michael.gorven.za.net/raspberrypi/xbmc
 class utils::raspian_xbmc ($ensure = present) {
 
   require 'utils::users'
