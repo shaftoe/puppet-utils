@@ -8,7 +8,7 @@ class utils::puppetagent (
     ensure      => $ensure,
     environment => 'PATH=/bin:/usr/sbin:/usr/bin:/usr/local/bin',
     user        => 'root',
-    command     => '/usr/bin/puppet agent --no-daemonize --onetime',
+    command     => 'puppet agent --no-daemonize --onetime',
     minute      => $frequency,
   }
 
