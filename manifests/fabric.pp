@@ -5,7 +5,6 @@ class utils::fabric ($ensure = present) {
     'python-dev',
     'python-yaml',
   ]
-  package { $pkgs: ensure => $ensure } 
 
   package { 'Fabric':
     ensure   => $ensure,
