@@ -1,5 +1,6 @@
 class utils::commons () {
   include 'ntp'
+  include 'postfix'
   include 'ssh::server'
   include 'syslog_ng'
   include 'utils::emptymotd'
