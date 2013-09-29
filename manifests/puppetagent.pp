@@ -10,6 +10,13 @@ class utils::puppetagent (
     user        => 'root',
     command     => 'puppet agent --no-daemonize --onetime',
     minute      => $frequency,
+    require     => Package['cron'],
+  }
+
+  service { 'cron':
+    ensure  => running,
+    enable  => true,
+    require => Package['cron'],
   }
 
 }
