@@ -7,11 +7,11 @@ class utils::sudo ($ensure = present) {
     owner   => 'root',
     group   => 'root',
     mode    => '0440',
+    require => Package['sudo'],
   }
 
   file { '/etc/sudoers':
     ensure  => $ensure,
-    require => Package['sudo'],
     source  => 'puppet:///modules/utils/sudo.default',
   }
 
