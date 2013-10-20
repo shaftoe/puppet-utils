@@ -7,6 +7,11 @@ class utils::puppetmaster (
 
   include 'utils::puppetagent'
 
+  tidy { '/var/lib/puppet/reports':
+    recurse => true,
+    age     => '1w',
+  }
+
   cron { 'puppet-repo-update':
     user    => 'root',
     command => "cd ${manifestsbasepath} && git pull &> /dev/null",
