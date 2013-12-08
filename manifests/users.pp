@@ -4,10 +4,10 @@ class utils::users () {
 
   if $::osfamily == 'RedHat' {
     file {'/etc/skel/.profile':
-      ensure  => present,
-      owner   => 'root',
-      mode    => '0444',
-      content => 'puppet:///modules/utils/profile',
+      ensure => present,
+      owner  => 'root',
+      mode   => '0444',
+      source => 'puppet:///modules/utils/profile',
     }
   }
 
