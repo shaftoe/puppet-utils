@@ -28,7 +28,7 @@ define utils::user () {
       mode   => '0750',
     }
     $dotlinks = ['bashrc', 'profile', 'bash_logout']
-    $dotlinks.foreach { |$x|
+    each($dotlinks) |$x| {
       file { "/home/${name}/.${x}":
         ensure => link,
         target => "/etc/skel/.${x}",

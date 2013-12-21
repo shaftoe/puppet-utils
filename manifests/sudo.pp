@@ -1,7 +1,12 @@
 # Basic sudoers rules
 class utils::sudo ($ensure = present) {
 
-  package {'sudo': ensure => $ensure}
+  group { 'sudo': ensure => $ensure }
+
+  package {'sudo':
+    ensure  => $ensure,
+    require => Group['sudo'],
+  }
 
   File {
     owner   => 'root',
@@ -16,7 +21,7 @@ class utils::sudo ($ensure = present) {
   }
 
   $users = hiera('users')
-  $users.foreach { |$user, $value|
+  each($users) |$user, $value| {
     if 'sudo' in $value['groups'] {
 
       $rule = $value['noasksudopass'] ? {

@@ -8,7 +8,7 @@ class utils::coloredbash () {
   }
 
   $dotlinks = ['bashrc', 'profile', 'bash_logout']
-  $dotlinks.foreach { |$x|
+  each($dotlinks) |$x| {
     file { "/root/.${x}":
       ensure => link,
       target => "/etc/skel/.${x}",

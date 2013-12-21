@@ -2,12 +2,12 @@
 class utils::packages () {
 
   $packages = hiera_array('packages_present', [])
-  $packages.foreach {|$x|
+  each($packages) |$x| {
     package {$x: ensure => present}
   }
 
   $toremove = hiera_array('packages_absent', [])
-  $toremove.foreach {|$x|
+  each($toremove) |$x| {
     package {$x: ensure => absent}
   }
 

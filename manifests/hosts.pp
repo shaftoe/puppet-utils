@@ -1,4 +1,4 @@
 class utils::hosts () {
   $users = hiera_hash('hosts')
-  $users.foreach { |$x| utils::host{ $x[0]: }}
+  each($users) |$x| { utils::host{ $x[0]: }}
 }
